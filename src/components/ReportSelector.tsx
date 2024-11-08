@@ -1,4 +1,16 @@
 import { File } from "lucide-react";
+import { useState } from "react";
+
+export interface Report {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+}
+
+interface ReportSelectorProps {
+  onReportSelect: (report: Report) => void;
+}
 
 const reportTypes = [
   {
@@ -21,7 +33,14 @@ const reportTypes = [
   },
 ];
 
-const ReportSelector = () => {
+const ReportSelector = ({ onReportSelect }: ReportSelectorProps) => {
+  const [selectedReport, setSelectedReport] = useState<Report | null>(null);
+
+  const handleReportSelect = (report: Report) => {
+    setSelectedReport(report);
+    onReportSelect(report);
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
       <div className="flex items-center mb-6">
@@ -32,7 +51,12 @@ const ReportSelector = () => {
         {reportTypes.map((report) => (
           <div
             key={report.id}
-            className="border border-gray-200 rounded-lg p-4 hover:border-river-500 transition-colors cursor-pointer group"
+            className={`border rounded-lg p-4 cursor-pointer transition-colors ${
+              selectedReport?.id === report.id
+                ? "border-river-500 bg-river-50"
+                : "border-gray-200 hover:border-river-500"
+            }`}
+            onClick={() => handleReportSelect(report)}
           >
             <h3 className="font-semibold text-lg mb-2 group-hover:text-river-600">
               {report.name}

@@ -1,9 +1,35 @@
+import { useState } from "react";
 import Header from "@/components/Header";
 import MapSection from "@/components/MapSection";
-import ReportSelector from "@/components/ReportSelector";
+import ReportSelector, { Report } from "@/components/ReportSelector";
 import PaymentForm from "@/components/PaymentForm";
+import { toast } from "@/components/ui/use-toast";
+
+interface Coordinates {
+  lat: string;
+  lng: string;
+}
 
 const Index = () => {
+  const [selectedCoordinates, setSelectedCoordinates] = useState<Coordinates | null>(null);
+  const [selectedReport, setSelectedReport] = useState<Report | null>(null);
+
+  const handleCoordinatesSelect = (coords: Coordinates) => {
+    setSelectedCoordinates(coords);
+    toast({
+      title: "Ubicación seleccionada",
+      description: `Coordenadas: ${coords.lat}, ${coords.lng}`,
+    });
+  };
+
+  const handleReportSelect = (report: Report) => {
+    setSelectedReport(report);
+    toast({
+      title: "Informe seleccionado",
+      description: `${report.name} - $${report.price.toLocaleString("es-CL")}`,
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -17,9 +43,11 @@ const Index = () => {
               Obtenga información detallada y profesional sobre cualquier sección de río en Chile
             </p>
           </div>
-          <MapSection />
-          <ReportSelector />
-          <PaymentForm />
+          <MapSection onCoordinatesSelect={handleCoordinatesSelect} />
+          <ReportSelector onReportSelect={handleReportSelect} />
+          {selectedCoordinates && selectedReport && (
+            <PaymentForm />
+          )}
         </div>
       </main>
     </div>
