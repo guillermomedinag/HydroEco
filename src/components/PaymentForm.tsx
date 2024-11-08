@@ -1,4 +1,4 @@
-import { CreditCard, DollarSign, Bank } from "lucide-react";
+import { CreditCard, DollarSign, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -57,7 +57,7 @@ const PaymentForm = () => {
             }`}>
               <RadioGroupItem value="transfer" id="transfer" className="sr-only" />
               <Label htmlFor="transfer" className="cursor-pointer">
-                <Bank className="h-5 w-5 mb-2" />
+                <Building2 className="h-5 w-5 mb-2" />
                 <div className="font-semibold">Transferencia Bancaria</div>
               </Label>
             </div>
