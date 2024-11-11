@@ -16,7 +16,6 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
   const [coordinates, setCoordinates] = useState<Coordinates>({ lat: "", lng: "" });
   const [searchInput, setSearchInput] = useState("");
   const mapRef = useRef<L.Map | null>(null);
-  const markerRef = useRef<L.Marker | null>(null);
 
   useEffect(() => {
     if (!mapRef.current) {
@@ -26,30 +25,12 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
         attribution: '&copy; <a href="https://www.emoingenieros.cl/">EMOingenieros</a>'
       }).addTo(mapRef.current);
 
-      markerRef.current = L.marker([-33.4489, -70.7893], {
-        draggable: true
-      }).addTo(mapRef.current);
-
-      markerRef.current.on('dragend', function(e) {
-        const marker = e.target;
-        const position = marker.getLatLng();
-        const newCoords = {
-          lat: position.lat.toFixed(6),
-          lng: position.lng.toFixed(6)
-        };
-        setCoordinates(newCoords);
-        onCoordinatesSelect(newCoords);
-      });
-
       mapRef.current.on('click', function(e) {
         const { lat, lng } = e.latlng;
         const newCoords = {
           lat: lat.toFixed(6),
           lng: lng.toFixed(6)
         };
-        if (markerRef.current) {
-          markerRef.current.setLatLng([lat, lng]);
-        }
         setCoordinates(newCoords);
         onCoordinatesSelect(newCoords);
       });
@@ -65,10 +46,9 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
 
   const handleSearch = () => {
     const [lat, lng] = searchInput.split(',').map(coord => coord.trim());
-    if (lat && lng && mapRef.current && markerRef.current) {
+    if (lat && lng && mapRef.current) {
       const newCoords = { lat, lng };
       mapRef.current.setView([Number(lat), Number(lng)], 8);
-      markerRef.current.setLatLng([Number(lat), Number(lng)]);
       setCoordinates(newCoords);
       onCoordinatesSelect(newCoords);
     }
@@ -84,7 +64,7 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
       <div className="relative">
         <div id="map" className="h-[400px] w-full rounded-lg mb-4" />
         
-        <div className="absolute top-4 right-4 flex gap-2 bg-white p-2 rounded shadow-md">
+        <div className="fixed top-4 right-4 z-[1000] flex gap-2 bg-white p-2 rounded shadow-md">
           <input
             type="text"
             value={searchInput}
