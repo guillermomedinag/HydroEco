@@ -48,7 +48,7 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
     const [lat, lng] = searchInput.split(',').map(coord => coord.trim());
     if (lat && lng && mapRef.current) {
       const newCoords = { lat, lng };
-      mapRef.current.setView([Number(lat), Number(lng)], 8);
+      mapRef.current.setView([Number(lat), Number(lng)], mapRef.current.getZoom());
       setCoordinates(newCoords);
       onCoordinatesSelect(newCoords);
     }
@@ -64,7 +64,7 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
       <div className="relative">
         <div id="map" className="h-[400px] w-full rounded-lg mb-4" />
         
-        <div className="fixed top-4 right-4 z-[1000] flex gap-2 bg-white p-2 rounded shadow-md">
+        <div className="absolute top-4 right-4 flex gap-2 bg-white p-2 rounded shadow-md">
           <input
             type="text"
             value={searchInput}
