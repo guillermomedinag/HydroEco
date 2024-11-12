@@ -63,7 +63,7 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
     <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
       <div className="flex items-center mb-4">
         <MapPin className="h-6 w-6 text-river-600 mr-2" />
-        <h2 className="text-xl font-semibold">Seleccione ubicación del río</h2>
+        <h2 className="text-xl font-semibold z-10">Seleccione ubicación del río</h2>
       </div>
       
       <div className="relative">
