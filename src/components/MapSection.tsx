@@ -22,18 +22,21 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
       mapRef.current = L.map('map').setView([-33.4489, -70.7893], 8);
       
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.emoingenieros.cl/">EMOingenieros</a>',
-        zIndex: 1000
+        attribution: '&copy; <a href="https://www.emoingenieros.cl/">EMOingenieros</a>'
       }).addTo(mapRef.current);
 
       mapRef.current.on('click', function(e) {
         const { lat, lng } = e.latlng;
+        const currentZoom = mapRef.current?.getZoom();
         const newCoords = {
           lat: lat.toFixed(6),
           lng: lng.toFixed(6)
         };
         setCoordinates(newCoords);
         onCoordinatesSelect(newCoords);
+        if (mapRef.current && currentZoom) {
+          mapRef.current.setView([lat, lng], currentZoom);
+        }
       });
     }
 
@@ -49,7 +52,8 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
     const [lat, lng] = searchInput.split(',').map(coord => coord.trim());
     if (lat && lng && mapRef.current) {
       const newCoords = { lat, lng };
-      mapRef.current.setView([Number(lat), Number(lng)], mapRef.current.getZoom());
+      const currentZoom = mapRef.current.getZoom();
+      mapRef.current.setView([Number(lat), Number(lng)], currentZoom);
       setCoordinates(newCoords);
       onCoordinatesSelect(newCoords);
     }
@@ -63,9 +67,9 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
       </div>
       
       <div className="relative">
-        <div id="map" className="h-[400px] w-full rounded-lg mb-4 z-[1000]" />
+        <div id="map" className="h-[400px] w-full rounded-lg mb-4" />
         
-        <div className="absolute top-4 right-4 flex gap-2 bg-white p-2 rounded shadow-md z-[500]">
+        <div className="absolute top-4 right-4 flex gap-2 bg-white p-2 rounded shadow-md z-10">
           <input
             type="text"
             value={searchInput}
