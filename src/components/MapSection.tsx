@@ -22,7 +22,8 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
       mapRef.current = L.map('map').setView([-33.4489, -70.7893], 8);
       
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.emoingenieros.cl/">EMOingenieros</a>'
+        attribution: '&copy; <a href="https://www.emoingenieros.cl/">EMOingenieros</a>',
+        zIndex: 1000
       }).addTo(mapRef.current);
 
       mapRef.current.on('click', function(e) {
@@ -62,9 +63,9 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
       </div>
       
       <div className="relative">
-        <div id="map" className="h-[400px] w-full rounded-lg mb-4" />
+        <div id="map" className="h-[400px] w-full rounded-lg mb-4 z-[1000]" />
         
-        <div className="absolute top-4 right-4 flex gap-2 bg-white p-2 rounded shadow-md">
+        <div className="absolute top-4 right-4 flex gap-2 bg-white p-2 rounded shadow-md z-[500]">
           <input
             type="text"
             value={searchInput}
