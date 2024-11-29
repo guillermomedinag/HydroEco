@@ -61,15 +61,13 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-      <div className="flex items-center mb-4 relative" style={{ top: '0' }}>
-        <MapPin className="h-6 w-6 text-river-600 mr-2" />
-        <h2 className="text-xl font-semibold">Seleccione ubicación del río</h2>
-      </div>
-      
-      <div className="relative">
-        <div id="map" className="h-[400px] w-full rounded-lg mb-4" />
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center">
+          <MapPin className="h-6 w-6 text-river-600 mr-2" />
+          <h2 className="text-xl font-semibold">Seleccione ubicación del río</h2>
+        </div>
         
-        <div className="absolute top-0 right-4 flex gap-2 bg-white p-2 rounded shadow-md">
+        <div className="flex items-center gap-2">
           <input
             type="text"
             value={searchInput}
@@ -84,6 +82,10 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
             Buscar
           </button>
         </div>
+      </div>
+      
+      <div className="relative">
+        <div id="map" className="h-[400px] w-full rounded-lg mb-4" />
       </div>
 
       <div className="mt-4 p-4 bg-river-50 rounded-lg">
