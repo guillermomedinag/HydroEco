@@ -1,4 +1,4 @@
-import { MapPin, HelpCircle, CheckCircle2, XCircle } from "lucide-react";
+import { MapPin, HelpCircle, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -14,10 +14,8 @@ interface MapSectionProps {
 }
 
 const isValidCoordinate = (input: string): boolean => {
-  // Validar formato y rango de coordenadas
   const [lat, lng] = input.split(',').map(coord => coord.trim());
   
-  // Verificar que sean números y estén en el rango correcto
   const latNum = parseFloat(lat);
   const lngNum = parseFloat(lng);
   
@@ -68,15 +66,7 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
     };
   }, [onCoordinatesSelect]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value;
-    setSearchInput(input);
-    
-    // Validar coordenadas solo si hay algo escrito
-    setIsValidInput(input ? isValidCoordinate(input) : null);
-  };
-
-  const handleSearch = () => {
+  const handleCoordinateSearch = () => {
     if (isValidInput) {
       const [lat, lng] = searchInput.split(',').map(coord => coord.trim());
       if (mapRef.current) {
@@ -87,6 +77,12 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
         onCoordinatesSelect(newCoords);
       }
     }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setSearchInput(input);
+    setIsValidInput(input ? isValidCoordinate(input) : null);
   };
 
   return (
@@ -103,49 +99,51 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
               <TooltipContent className="bg-river-50 text-river-800 p-3 rounded-lg shadow-md max-w-xs">
                 <p>Puede seleccionar la ubicación de dos formas:</p>
                 <ol className="list-decimal list-inside mt-2">
-                  <li>Haga clic directamente en el mapa para seleccionar coordenadas</li>
-                  <li>Ingrese manualmente las coordenadas en formato Latitud, Longitud (ej: -33.4489, -70.7893)</li>
+                  <li>Haga clic directamente en el mapa</li>
+                  <li>Ingrese coordenadas manualmente</li>
                 </ol>
+                <div className="mt-2 border-t pt-2">
+                  <p className="text-sm font-semibold">Ejemplo:</p>
+                  <ul className="list-disc list-inside text-sm">
+                    <li>Coordenadas: <code>-33.4489, -70.7893</code></li>
+                  </ul>
+                </div>
               </TooltipContent>
             </Tooltip>
           </div>
-          
-          <div className="flex items-center gap-2 relative">
-            <div className="relative flex-grow">
-              <input
-                type="text"
-                value={searchInput}
-                onChange={handleInputChange}
-                placeholder="Latitud, Longitud"
-                className={`border rounded px-2 py-1 text-sm w-48 pr-8 ${
-                  isValidInput === true 
-                    ? 'border-green-500 focus:ring-green-500' 
-                    : isValidInput === false 
-                    ? 'border-red-500 focus:ring-red-500' 
-                    : ''
-                }`}
-              />
-              {isValidInput !== null && (
-                <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
-                  {isValidInput ? (
-                    <CheckCircle2 className="h-5 w-5 text-green-500" />
-                  ) : (
-                    <XCircle className="h-5 w-5 text-red-500" />
-                  )}
-                </div>
-              )}
-            </div>
-            <button
-              onClick={handleSearch}
-              disabled={!isValidInput}
-              className={`px-3 py-1 rounded text-sm transition-colors ${
-                isValidInput 
-                  ? 'bg-river-600 text-white hover:bg-river-700' 
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+        </div>
+
+        <div className="flex items-center gap-4 mb-4">
+          <div className="relative w-full">
+            <input
+              type="text"
+              value={searchInput}
+              onChange={handleInputChange}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && isValidInput) {
+                  handleCoordinateSearch();
+                }
+              }}
+              placeholder="Latitud, Longitud"
+              className={`border rounded px-2 py-1 text-sm w-full pr-8 ${
+                isValidInput === false ? 'border-red-500' : ''
               }`}
-            >
-              Buscar
-            </button>
+            />
+            {isValidInput === false && (
+              <div className="absolute inset-x-0 top-0 z-10 flex justify-center">
+                <div className="text-red-600 text-xs text-center absolute top-full mt-1">
+                  Ingrese coordenadas en formato correcto (ej: -33.4489, -70.7893)
+                </div>
+              </div>
+            )}
+            <Search 
+              className={`absolute right-1 top-1/2 transform -translate-y-1/2 h-5 w-5 ${
+                isValidInput 
+                  ? 'text-river-600 cursor-pointer' 
+                  : 'text-gray-400'
+              }`}
+              onClick={isValidInput ? handleCoordinateSearch : undefined}
+            />
           </div>
         </div>
         
