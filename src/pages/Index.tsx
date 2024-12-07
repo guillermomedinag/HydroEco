@@ -14,6 +14,7 @@ import {
 interface Coordinates {
   lat: string;
   lng: string;
+  id?: string;
 }
 
 const WorkflowStep = ({ 
@@ -41,15 +42,18 @@ const WorkflowStep = ({
 );
 
 const Index = () => {
-  const [selectedCoordinates, setSelectedCoordinates] = useState<Coordinates | null>(null);
+  const [selectedCoordinates, setSelectedCoordinates] = useState<Coordinates[]>([]);
   const [selectedReport, setSelectedReport] = useState<Report | null>(null);
 
-  const handleCoordinatesSelect = (coords: Coordinates) => {
+  const handleCoordinatesSelect = (coords: Coordinates[]) => {
     setSelectedCoordinates(coords);
-    toast({
-      title: "Ubicación seleccionada",
-      description: `Coordenadas: ${coords.lat}, ${coords.lng}`,
-    });
+    if (coords.length > 0) {
+      const lastCoord = coords[coords.length - 1];
+      toast({
+        title: "Ubicación seleccionada",
+        description: `Coordenadas: ${lastCoord.lat}, ${lastCoord.lng}`,
+      });
+    }
   };
 
   const handleReportSelect = (report: Report) => {
@@ -68,30 +72,40 @@ const Index = () => {
       <Header />
       <main className="container mx-auto px-4 py-8 relative z-20">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="hero-content space-y-8 py-20 px-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl transform transition-all duration-500 hover:scale-[1.02]">
-            <div className="relative">
-              <h1 className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-teal-300 mb-6 leading-tight animate-pulse-slow">
+          <div 
+            className="hero-content space-y-8 py-20 px-8 rounded-3xl border border-white/20 shadow-2xl transform transition-all duration-500 hover:scale-[1.02] relative overflow-hidden"
+            style={{
+              backgroundImage: 'url("/RiversCreeks.jpeg")',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            {/* Capa de superposición oscura para mejorar la legibilidad del texto */}
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+            
+            <div className="relative z-10">
+              <h1 className="text-6xl md:text-7xl font-black text-white mb-6 leading-tight text-shadow-lg">
                 Ríos de Chile
               </h1>
-              <h2 className="text-2xl md:text-3xl font-bold text-white/90 mb-8 max-w-4xl mx-auto tracking-wide">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 max-w-4xl mx-auto tracking-wide text-shadow">
                 Análisis Técnico Profesional de Ecosistemas Fluviales
               </h2>
-            </div>
-            <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
-              <Button 
-                variant="default" 
-                size="lg" 
-                className="bg-white text-blue-900 hover:bg-blue-100 transition-all duration-300 transform hover:scale-105 shadow-xl"
-              >
-                Explorar Informes
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="border-2 border-white text-white hover:bg-white/20 transition-all duration-300 transform hover:scale-105"
-              >
-                Solicitar Consultoría
-              </Button>
+              <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
+                <Button 
+                  variant="default" 
+                  size="lg" 
+                  className="bg-white text-blue-900 hover:bg-blue-100 transition-all duration-300 transform hover:scale-105 shadow-xl"
+                >
+                  Explorar Informes
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="border-2 border-white text-white hover:bg-white/20 transition-all duration-300 transform hover:scale-105"
+                >
+                  Solicitar Consultoría
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -125,7 +139,7 @@ const Index = () => {
         <div className="mt-16">
           <MapSection onCoordinatesSelect={handleCoordinatesSelect} />
           <ReportSelector onReportSelect={handleReportSelect} />
-          {selectedCoordinates && selectedReport && (
+          {selectedCoordinates.length > 0 && selectedReport && (
             <PaymentForm />
           )}
         </div>
