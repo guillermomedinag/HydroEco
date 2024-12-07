@@ -115,13 +115,26 @@ const Index = () => {
           <h2 className="text-4xl font-bold text-center text-white mb-16">
             Cómo Obtener tu Informe Técnico
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="max-w-3xl mx-auto mb-16">
             <WorkflowStep 
               icon={MapPinIcon}
               number={1}
               title="Selecciona Ubicación"
               description="Usa nuestro mapa interactivo para elegir el punto exacto del río que deseas analizar."
             />
+          </div>
+        </section>
+
+        <div className="mt-8">
+          <MapSection onCoordinatesSelect={handleCoordinatesSelect} />
+          <ReportSelector onReportSelect={handleReportSelect} />
+          {selectedCoordinates.length > 0 && selectedReport && (
+            <PaymentForm />
+          )}
+        </div>
+
+        <section className="mt-16 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8">
             <WorkflowStep 
               icon={DocumentTextIcon}
               number={2}
@@ -136,14 +149,6 @@ const Index = () => {
             />
           </div>
         </section>
-
-        <div className="mt-16">
-          <MapSection onCoordinatesSelect={handleCoordinatesSelect} />
-          <ReportSelector onReportSelect={handleReportSelect} />
-          {selectedCoordinates.length > 0 && selectedReport && (
-            <PaymentForm />
-          )}
-        </div>
       </main>
       <svg 
         className="absolute bottom-0 left-0 w-full h-48 text-white" 
