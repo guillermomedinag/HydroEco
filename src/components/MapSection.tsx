@@ -88,18 +88,8 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
           const marker = L.marker([lat, lng]).addTo(map);
           markersRef.current[newCoord.id] = marker;
           
-          setCoordinates(prev => {
-            // Eliminar la última coordenada si existe
-            if (prev.length > 0) {
-              const lastCoord = prev[prev.length - 1];
-              if (lastCoord.id && markersRef.current[lastCoord.id]) {
-                map.removeLayer(markersRef.current[lastCoord.id]);
-                delete markersRef.current[lastCoord.id];
-              }
-              return [newCoord];
-            }
-            return [newCoord];
-          });
+          setCoordinates(prev => [...prev, newCoord]);
+          onCoordinatesSelect([...coordinates, newCoord]);
         }
       });
 
@@ -175,18 +165,11 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
           const isDuplicate = prev.some(
             coord => coord.lat === newCoord.lat && coord.lng === newCoord.lng
           );
-          
+            
           if (!isDuplicate) {
-            // Eliminar la última coordenada si existe
-            if (prev.length > 0) {
-              const lastCoord = prev[prev.length - 1];
-              if (lastCoord.id && markersRef.current[lastCoord.id]) {
-                mapRef.current?.removeLayer(markersRef.current[lastCoord.id]);
-                delete markersRef.current[lastCoord.id];
-              }
-            }
-            onCoordinatesSelect([newCoord]);
-            return [newCoord];
+            const newCoords = [...prev, newCoord];
+            onCoordinatesSelect(newCoords);
+            return newCoords;
           }
           return prev;
         });
