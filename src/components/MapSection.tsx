@@ -57,7 +57,7 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
     if (!mapRef.current) {
       const map = L.map('map', {
         center: [-33.4489, -70.6693],
-        zoom: 19,
+        zoom: 9,
         zoomControl: true,
         attributionControl: true
       });
