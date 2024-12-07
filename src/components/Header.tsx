@@ -6,18 +6,18 @@ const Header = () => {
       <div className="container mx-auto px-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Map className="h-8 w-8" />
-          <h1 className="text-2xl font-bold">HidroInformes Chile</h1>
+          <h1 className="text-2xl font-bold">HidorEco Chile</h1>
         </div>
         <nav>
           <ul className="flex space-x-6">
             <li>
               <a href="#" className="hover:text-river-200 transition-colors">
-                Inicio
+                Quienes Somos
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-river-200 transition-colors">
-                Servicios
+                Nuestro Servicio
               </a>
             </li>
             <li>

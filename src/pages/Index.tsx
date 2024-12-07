@@ -101,7 +101,7 @@ const Index = () => {
                   size="lg"
                   className="bg-white/90 text-blue-900 hover:bg-white transition-all duration-300 transform hover:scale-105 shadow-lg"
                 >
-                  Comienza ¡Aquí!
+                  Comienza ¡Ahora!
                 </Button>
                 <Button 
                   variant="outline" 
@@ -124,7 +124,7 @@ const Index = () => {
               icon={MapPinIcon}
               number={1}
               title="Selecciona las ubicaciones de interés"
-              description="Usa nuestro mapa interactivo para elegir uno o más secciones exactas del río que deseas obtener tu reporte."
+              description="Usa nuestro mapa interactivo para elegir una o más secciones exactas del río que deseas obtener tu reporte."
             />
           </div>
         </section>
