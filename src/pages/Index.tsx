@@ -173,7 +173,6 @@ const Index = () => {
             </div>
           )}
         </div>
-      </div>
       </main>
       <svg 
         className="absolute bottom-0 left-0 w-full h-48 text-white" 
