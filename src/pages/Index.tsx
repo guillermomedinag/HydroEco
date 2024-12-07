@@ -131,6 +131,14 @@ const Index = () => {
 
         <div className="mt-8">
           <MapSection onCoordinatesSelect={handleCoordinatesSelect} />
+          <div className="max-w-3xl mx-auto mt-16">
+            <WorkflowStep 
+              icon={DocumentTextIcon}
+              number={2}
+              title="Elige Tipo de Informe"
+              description="Selecciona entre diferentes tipos de informes técnicos según tus necesidades específicas."
+            />
+          </div>
           <ReportSelector onReportSelect={handleReportSelect} />
           {selectedCoordinates.length > 0 && selectedReport && (
             <PaymentForm />
@@ -138,13 +146,7 @@ const Index = () => {
         </div>
 
         <section className="mt-16 max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8">
-            <WorkflowStep 
-              icon={DocumentTextIcon}
-              number={2}
-              title="Elige Tipo de Informe"
-              description="Selecciona entre diferentes tipos de informes técnicos según tus necesidades específicas."
-            />
+          <div className="max-w-3xl mx-auto">
             <WorkflowStep 
               icon={CreditCardIcon}
               number={3}
