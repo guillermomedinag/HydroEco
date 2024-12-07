@@ -93,56 +93,56 @@ const Index = () => {
                 Reportes HidroEco Chile
               </h1>
               <h2 className="text-xl md:text-2xl font-bold text-white mb-6 max-w-3xl mx-auto tracking-wide text-shadow">
-                Informes de datos  Técnico Profesional de Ecosistemas Fluviales
+                Informes de datos técnicos y profesionales de ecosistemas fluviales de Chile
               </h2>
               <div className="flex flex-row justify-center space-x-4">
                 <Button 
                   variant="default" 
-                  size="lg" 
+                  size="lg"
                   className="bg-white/90 text-blue-900 hover:bg-white transition-all duration-300 transform hover:scale-105 shadow-lg"
                 >
-                  Explorar Informes
+                  Comienza ¡Aquí!
                 </Button>
                 <Button 
                   variant="outline" 
                   size="lg" 
                   className="border-2 border-white text-white hover:bg-white/20 transition-all duration-300 transform hover:scale-105"
                 >
-                  Solicitar Consultoría
+                  Parámetros dispoibles
                 </Button>
               </div>
             </div>
           </div>
         </div>
 
-        <section className="mt-24 max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center text-white mb-16">
-            Cómo Obtener tu Informe Técnico
+        <section className="mt-20 max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center text-white mb-10">
+            Obtén tu informe en 3 simples pasos
           </h2>
-          <div className="max-w-3xl mx-auto mb-16">
+          <div className="max-w-3xl mx-auto mb-10">
             <WorkflowStep 
               icon={MapPinIcon}
               number={1}
-              title="Selecciona Ubicación"
-              description="Usa nuestro mapa interactivo para elegir el punto exacto del río que deseas analizar."
+              title="Selecciona las ubicaciones de interés"
+              description="Usa nuestro mapa interactivo para elegir uno o más secciones exactas del río que deseas obtener tu reporte."
             />
           </div>
         </section>
 
-        <div className="mt-8">
+        <div className="mt-10">
           <MapSection onCoordinatesSelect={handleCoordinatesSelect} />
-          <div className="max-w-3xl mx-auto mt-16">
+          <div className="max-w-3xl mx-auto mt-10">
             <WorkflowStep 
               icon={DocumentTextIcon}
               number={2}
-              title="Elige Tipo de Informe"
+              title="Elige el tipo de informe que necesitas"
               description="Selecciona entre diferentes tipos de informes técnicos según tus necesidades específicas."
             />
           </div>
-          <div className="mt-24">
+          <div className="mt-10">
             <ReportSelector onReportSelect={handleReportSelect} />
           </div>
-          <div className="max-w-3xl mx-auto mt-24">
+          <div className="max-w-3xl mx-auto mt-10">
             <WorkflowStep 
               icon={CreditCardIcon}
               number={3}
@@ -151,7 +151,7 @@ const Index = () => {
             />
           </div>
           {selectedCoordinates.length > 0 && selectedReport && (
-            <div className="mt-24">
+            <div className="mt-10">
               <PaymentForm />
             </div>
           )}
