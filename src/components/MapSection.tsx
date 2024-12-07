@@ -154,9 +154,17 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
         markersRef.current[newCoord.id] = marker;
 
         setCoordinates(prev => {
-          const updatedCoords = [...prev, newCoord];
-          onCoordinatesSelect(updatedCoords);
-          return updatedCoords;
+          // Verificar si las coordenadas ya existen
+          const isDuplicate = prev.some(
+            coord => coord.lat === newCoord.lat && coord.lng === newCoord.lng
+          );
+            
+          if (!isDuplicate) {
+            const updatedCoords = [...prev, newCoord];
+            onCoordinatesSelect(updatedCoords);
+            return updatedCoords;
+          }
+          return prev;
         });
       }
       
