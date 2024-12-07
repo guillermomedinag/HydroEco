@@ -159,10 +159,9 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
           return updatedCoords;
         });
       }
-        
-        setSearchInput('');
-        setIsValidInput(null);
-      }
+      
+      setSearchInput('');
+      setIsValidInput(null);
     }
   };
 
