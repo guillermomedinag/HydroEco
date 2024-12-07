@@ -68,7 +68,7 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
       }).addTo(map);
 
       // Configurar el evento de clic una sola vez
-      const handleMapClick = (e: L.LeafletMouseEvent) => {
+      map.on('click', (e: L.LeafletMouseEvent) => {
         const { lat, lng } = e.latlng;
         const newCoord: Coordinates = {
           lat: lat.toFixed(6),
@@ -76,18 +76,11 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
           id: `marker-${Date.now()}`
         };
         
-        // Crear nuevo marcador
         const marker = L.marker([lat, lng]).addTo(map);
         markersRef.current[newCoord.id] = marker;
-
-        setCoordinates(prev => {
-          const updatedCoords = [...prev, newCoord];
-          onCoordinatesSelect(updatedCoords);
-          return updatedCoords;
-        });
-      };
-
-      map.on('click', handleMapClick);
+        
+        setCoordinates(prev => [...prev, newCoord]);
+      });
 
       mapRef.current = map;
     }
