@@ -255,31 +255,65 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
           </div>
         </div>
 
-        {coordinates.length > 0 && (
-          <div className="mt-4 p-4 bg-river-50 rounded-lg">
-            <h3 className="text-sm font-semibold text-river-800 mb-2">Coordenadas seleccionadas:</h3>
-            <ul className="space-y-2">
-              {coordinates.map((coord, index) => (
-                <li 
-                  key={coord.id} 
-                  className="flex justify-between items-center bg-white p-2 rounded-md shadow-sm"
-                >
-                  <span className="font-mono text-sm">
-                    {index + 1}. {coord.lat}, {coord.lng}
-                  </span>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="text-red-500 hover:bg-red-50"
-                    onClick={() => removeCoordinate(coord)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </li>
-              ))}
-            </ul>
+        <div className="mt-6 bg-white rounded-lg border border-gray-200 shadow-sm">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
+            <div className="flex items-center space-x-2">
+              <MapIcon className="h-5 w-5 text-gray-500" />
+              <h3 className="font-semibold text-gray-900">Coordenadas seleccionadas</h3>
+              <span className="px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">
+                {coordinates.length}
+              </span>
+            </div>
+            {coordinates.length > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-gray-600 hover:text-red-600 transition-colors"
+                onClick={resetMap}
+              >
+                Limpiar todo
+              </Button>
+            )}
           </div>
-        )}
+
+          <div className="p-4">
+            {coordinates.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-6 text-center">
+                <MapPin className="h-12 w-12 text-gray-300 mb-3" />
+                <p className="text-gray-500 mb-1">No hay coordenadas seleccionadas</p>
+                <p className="text-sm text-gray-400">
+                  Haz clic en el mapa o ingresa coordenadas manualmente
+                </p>
+              </div>
+            ) : (
+              <ul className="space-y-2">
+                {coordinates.map((coord, index) => (
+                  <li
+                    key={coord.id}
+                    className="group flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <span className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-600 text-sm font-medium">
+                        {index + 1}
+                      </span>
+                      <span className="font-mono text-sm text-gray-600">
+                        {coord.lat}, {coord.lng}
+                      </span>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-red-600"
+                      onClick={() => removeCoordinate(coord)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
       </div>
     </TooltipProvider>
   );
