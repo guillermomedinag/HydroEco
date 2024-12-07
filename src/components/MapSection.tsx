@@ -255,62 +255,62 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
           </div>
         </div>
 
-        <div className="mt-6 bg-white rounded-lg border border-gray-200 shadow-sm">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
-            <div className="flex items-center space-x-2">
-              <MapIcon className="h-5 w-5 text-gray-500" />
-              <h3 className="font-semibold text-gray-900">Coordenadas seleccionadas</h3>
-              <span className="px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">
-                {coordinates.length}
-              </span>
+        <div className="mt-4 bg-white rounded-lg border border-gray-200 shadow-sm">
+          <div className="p-4 border-b border-gray-200 bg-gray-50">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <MapIcon className="h-5 w-5 text-gray-600" />
+                <h3 className="font-semibold text-gray-900">Coordenadas seleccionadas</h3>
+              </div>
+              {coordinates.length > 0 && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                  onClick={resetMap}
+                >
+                  <Trash2 className="h-4 w-4 mr-2" />
+                  Limpiar todo
+                </Button>
+              )}
             </div>
-            {coordinates.length > 0 && (
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-gray-600 hover:text-red-600 transition-colors"
-                onClick={resetMap}
-              >
-                Limpiar todo
-              </Button>
-            )}
           </div>
-
+          
           <div className="p-4">
             {coordinates.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-6 text-center">
-                <MapPin className="h-12 w-12 text-gray-300 mb-3" />
-                <p className="text-gray-500 mb-1">No hay coordenadas seleccionadas</p>
-                <p className="text-sm text-gray-400">
-                  Haz clic en el mapa o ingresa coordenadas manualmente
-                </p>
+              <div className="text-center py-6 text-gray-500">
+                <MapPin className="h-12 w-12 mx-auto mb-3 text-gray-400" />
+                <p className="text-sm">No hay coordenadas seleccionadas</p>
+                <p className="text-xs mt-1">Haga clic en el mapa o ingrese coordenadas manualmente la caja arriba el mapa</p>
               </div>
             ) : (
-              <ul className="space-y-2">
+              <div className="space-y-2">
                 {coordinates.map((coord, index) => (
-                  <li
+                  <div 
                     key={coord.id}
-                    className="group flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                   >
                     <div className="flex items-center space-x-3">
-                      <span className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-600 text-sm font-medium">
-                        {index + 1}
-                      </span>
-                      <span className="font-mono text-sm text-gray-600">
-                        {coord.lat}, {coord.lng}
-                      </span>
+                      <div className="flex-shrink-0 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span className="text-sm font-medium text-blue-600">{index + 1}</span>
+                      </div>
+                      <div>
+                        <p className="font-mono text-sm text-gray-900">
+                          {coord.lat}, {coord.lng}
+                        </p>
+                      </div>
                     </div>
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-red-600"
+                      className="text-gray-400 hover:text-red-600 hover:bg-red-50"
                       onClick={() => removeCoordinate(coord)}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             )}
           </div>
         </div>
