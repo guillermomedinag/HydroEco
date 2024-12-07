@@ -142,13 +142,7 @@ const Index = () => {
           <div className="mt-24">
             <ReportSelector onReportSelect={handleReportSelect} />
           </div>
-          {selectedCoordinates.length > 0 && selectedReport && (
-            <PaymentForm />
-          )}
-        </div>
-
-        <section className="mt-16 max-w-6xl mx-auto">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto mt-24">
             <WorkflowStep 
               icon={CreditCardIcon}
               number={3}
@@ -156,7 +150,10 @@ const Index = () => {
               description="Completa tu compra de manera segura y recibe tu informe técnico detallado."
             />
           </div>
-        </section>
+          {selectedCoordinates.length > 0 && selectedReport && (
+            <PaymentForm />
+          )}
+        </div>
       </main>
       <svg 
         className="absolute bottom-0 left-0 w-full h-48 text-white" 
