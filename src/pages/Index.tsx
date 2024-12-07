@@ -139,7 +139,9 @@ const Index = () => {
               description="Selecciona entre diferentes tipos de informes técnicos según tus necesidades específicas."
             />
           </div>
-          <ReportSelector onReportSelect={handleReportSelect} />
+          <div className="mt-24">
+            <ReportSelector onReportSelect={handleReportSelect} />
+          </div>
           {selectedCoordinates.length > 0 && selectedReport && (
             <PaymentForm />
           )}
