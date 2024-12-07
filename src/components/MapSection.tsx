@@ -158,7 +158,7 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
           const isDuplicate = prev.some(
             coord => coord.lat === newCoord.lat && coord.lng === newCoord.lng
           );
-            
+          
           if (!isDuplicate) {
             const updatedCoords = [...prev, newCoord];
             onCoordinatesSelect(updatedCoords);
