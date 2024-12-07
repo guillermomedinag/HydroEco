@@ -151,7 +151,9 @@ const Index = () => {
             />
           </div>
           {selectedCoordinates.length > 0 && selectedReport && (
-            <PaymentForm />
+            <div className="mt-24">
+              <PaymentForm />
+            </div>
           )}
         </div>
       </main>
