@@ -38,8 +38,8 @@ const WorkflowStep = ({
     <div className="flex items-center space-x-4 flex-grow">
       <Icon className="w-8 h-8 text-blue-300 flex-shrink-0" />
       <div className="text-left">
-        <h3 className="text-lg font-bold text-white">{title}</h3>
-        <p className="text-sm text-white/80">{description}</p>
+        <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+        <p className="text-white text-lg">{description}</p>
       </div>
     </div>
   </div>
