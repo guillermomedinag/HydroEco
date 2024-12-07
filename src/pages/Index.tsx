@@ -28,16 +28,20 @@ const WorkflowStep = ({
   description: string, 
   number: number 
 }) => (
-  <div className="flex flex-col items-center text-center space-y-4 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 transition-all duration-300 hover:scale-105 hover:shadow-xl">
-    <div className="relative">
-      <div className="absolute -top-3 -left-3 bg-blue-600/30 w-12 h-12 rounded-full"></div>
-      <div className="relative z-10 bg-blue-600 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-lg">
-        <span className="text-2xl font-bold">{number}</span>
+  <div className="flex items-center space-x-6 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 hover:scale-102 hover:shadow-lg">
+    <div className="flex-shrink-0 relative">
+      <div className="absolute -top-2 -left-2 bg-blue-600/30 w-10 h-10 rounded-full"></div>
+      <div className="relative z-10 bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg">
+        <span className="text-xl font-bold">{number}</span>
       </div>
     </div>
-    <Icon className="w-12 h-12 text-blue-300 mb-4" />
-    <h3 className="text-xl font-bold text-white">{title}</h3>
-    <p className="text-white/80">{description}</p>
+    <div className="flex items-center space-x-4 flex-grow">
+      <Icon className="w-8 h-8 text-blue-300 flex-shrink-0" />
+      <div className="text-left">
+        <h3 className="text-lg font-bold text-white">{title}</h3>
+        <p className="text-sm text-white/80">{description}</p>
+      </div>
+    </div>
   </div>
 );
 
