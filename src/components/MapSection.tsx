@@ -67,7 +67,8 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
         attribution: '© OpenStreetMap contributors'
       }).addTo(map);
 
-      map.on('click', function(e) {
+      // Configurar el evento de clic una sola vez
+      const handleMapClick = (e: L.LeafletMouseEvent) => {
         const { lat, lng } = e.latlng;
         const newCoord: Coordinates = {
           lat: lat.toFixed(6),
@@ -84,7 +85,9 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
           onCoordinatesSelect(updatedCoords);
           return updatedCoords;
         });
-      });
+      };
+
+      map.on('click', handleMapClick);
 
       mapRef.current = map;
     }
