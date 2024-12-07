@@ -115,6 +115,26 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
     };
   }, [onCoordinatesSelect]);
 
+  const addToCart = (coord: Coordinates) => {
+    setCartCoordinates(prev => [...prev, coord]);
+    
+    // Eliminar de la selección actual
+    if (mapRef.current) {
+      if (coord.id && markersRef.current[coord.id]) {
+        mapRef.current.removeLayer(markersRef.current[coord.id]);
+        delete markersRef.current[coord.id];
+      }
+      
+      const updatedCoords = coordinates.filter(c => c !== coord);
+      setCoordinates(updatedCoords);
+      onCoordinatesSelect(updatedCoords);
+    }
+  };
+
+  const removeFromCart = (coord: Coordinates) => {
+    setCartCoordinates(prev => prev.filter(c => c !== coord));
+  };
+
   const resetMap = () => {
     if (mapRef.current) {
       // Eliminar todos los marcadores
@@ -327,16 +347,77 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="text-gray-400 hover:text-red-600 hover:bg-red-50"
-                      onClick={() => removeCoordinate(coord)}
+                      className="text-gray-400 hover:text-green-600 hover:bg-green-50"
+                      onClick={() => addToCart(coord)}
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <PlusCircle className="h-4 w-4" />
                     </Button>
                   </div>
                 ))}
               </div>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Cart section */}
+      <div className="mt-4 bg-white rounded-lg border border-gray-200 shadow-sm">
+        <div className="p-4 border-b border-gray-200 bg-gray-50">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <MapIcon className="h-5 w-5 text-gray-600" />
+              <h3 className="font-semibold text-gray-900">Carrito de secciones de ríos</h3>
+            </div>
+            {cartCoordinates.length > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                onClick={() => setCartCoordinates([])}
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                Vaciar carrito
+              </Button>
+            )}
+          </div>
+        </div>
+        
+        <div className="p-4">
+          {cartCoordinates.length === 0 ? (
+            <div className="text-center py-6 text-gray-500">
+              <MapPin className="h-12 w-12 mx-auto mb-3 text-gray-400" />
+              <p className="text-sm">No hay secciones en el carrito</p>
+              <p className="text-xs mt-1">Agregue secciones usando el botón + en las coordenadas seleccionadas</p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {cartCoordinates.map((coord, index) => (
+                <div 
+                  key={coord.id || index}
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
+                      <span className="text-sm font-medium text-green-600">{index + 1}</span>
+                    </div>
+                    <div>
+                      <p className="font-mono text-sm text-gray-900">
+                        {coord.lat}, {coord.lng}
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-400 hover:text-red-600 hover:bg-red-50"
+                    onClick={() => removeFromCart(coord)}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </TooltipProvider>
