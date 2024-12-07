@@ -73,28 +73,29 @@ const Index = () => {
       <main className="container mx-auto px-4 py-8 relative z-20">
         <div className="max-w-6xl mx-auto text-center">
           <div 
-            className="hero-content space-y-8 py-20 px-8 rounded-3xl border border-white/20 shadow-2xl transform transition-all duration-500 hover:scale-[1.02] relative overflow-hidden"
+            className="hero-content space-y-4 py-12 px-8 rounded-2xl border border-white/20 shadow-lg transform transition-all duration-300 hover:scale-[1.01] relative overflow-hidden"
             style={{
               backgroundImage: 'url("/RiversCreeks.jpeg")',
               backgroundSize: 'cover',
-              backgroundPosition: 'center'
+              backgroundPosition: 'center',
+              height: '400px'
             }}
           >
             {/* Capa de superposición oscura para mejorar la legibilidad del texto */}
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
             
-            <div className="relative z-10">
-              <h1 className="text-6xl md:text-7xl font-black text-white mb-6 leading-tight text-shadow-lg">
+            <div className="relative z-10 flex flex-col justify-center h-full">
+              <h1 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight text-shadow-lg">
                 Ríos de Chile
               </h1>
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 max-w-4xl mx-auto tracking-wide text-shadow">
+              <h2 className="text-xl md:text-2xl font-bold text-white mb-6 max-w-3xl mx-auto tracking-wide text-shadow">
                 Análisis Técnico Profesional de Ecosistemas Fluviales
               </h2>
-              <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
+              <div className="flex flex-row justify-center space-x-4">
                 <Button 
                   variant="default" 
                   size="lg" 
-                  className="bg-white text-blue-900 hover:bg-blue-100 transition-all duration-300 transform hover:scale-105 shadow-xl"
+                  className="bg-white/90 text-blue-900 hover:bg-white transition-all duration-300 transform hover:scale-105 shadow-lg"
                 >
                   Explorar Informes
                 </Button>
