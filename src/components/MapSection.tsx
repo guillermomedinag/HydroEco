@@ -21,6 +21,7 @@ interface MapSectionProps {
 
 const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
   const [coordinates, setCoordinates] = useState<Coordinates[]>([]);
+  const [cartCoordinates, setCartCoordinates] = useState<Coordinates[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [isValidInput, setIsValidInput] = useState<boolean | null>(null);
   const mapRef = useRef<L.Map | null>(null);
@@ -127,19 +128,24 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
     }
   };
 
-  const removeCoordinate = (coordToRemove: Coordinates) => {
+  const addToCart = (coord: Coordinates) => {
+    setCartCoordinates(prev => [...prev, coord]);
+    
+    // Eliminar de la selección actual
     if (mapRef.current) {
-      // Eliminar marcador del mapa
-      if (coordToRemove.id && markersRef.current[coordToRemove.id]) {
-        mapRef.current.removeLayer(markersRef.current[coordToRemove.id]);
-        delete markersRef.current[coordToRemove.id];
+      if (coord.id && markersRef.current[coord.id]) {
+        mapRef.current.removeLayer(markersRef.current[coord.id]);
+        delete markersRef.current[coord.id];
       }
       
-      // Actualizar lista de coordenadas
-      const updatedCoords = coordinates.filter(coord => coord !== coordToRemove);
+      const updatedCoords = coordinates.filter(c => c !== coord);
       setCoordinates(updatedCoords);
       onCoordinatesSelect(updatedCoords);
     }
+  };
+
+  const removeFromCart = (coord: Coordinates) => {
+    setCartCoordinates(prev => prev.filter(c => c !== coord));
   };
 
   const handleCoordinateSearch = () => {
