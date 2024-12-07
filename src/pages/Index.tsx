@@ -150,12 +150,28 @@ const Index = () => {
               description="Completa tu compra de manera segura y recibe tu informe técnico detallado."
             />
           </div>
+          
+          <div className="max-w-3xl mx-auto mt-8 p-6 bg-blue-600/30 backdrop-blur-md rounded-xl border-2 border-blue-400/50 shadow-xl hover:shadow-blue-500/20 transition-all duration-300">
+            <div className="flex items-center space-x-4">
+              <div className="bg-blue-500 p-3 rounded-full shadow-inner">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8 text-white">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                </svg>
+              </div>
+              <div className="text-left">
+                <h3 className="text-xl font-bold text-white mb-2">Entrega Inmediata</h3>
+                <p className="text-white text-lg">
+                  Una vez completado el pago, recibirás automáticamente en tu correo electrónico el informe técnico junto con todos los enlaces de descarga correspondientes.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {selectedCoordinates.length > 0 && selectedReport && (
-            <div className="mt-10">
+            <div className="mt-8">
               <PaymentForm />
             </div>
           )}
-          <div className="max-w-3xl mx-auto mt-10 p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
             <div className="flex items-center space-x-4">
               <div className="bg-blue-600/20 p-3 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-blue-300">
