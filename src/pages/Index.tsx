@@ -90,10 +90,10 @@ const Index = () => {
             
             <div className="relative z-10 flex flex-col justify-center h-full">
               <h1 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight text-shadow-lg">
-                Ríos de Chile
+                Reportes HidroEco Chile
               </h1>
               <h2 className="text-xl md:text-2xl font-bold text-white mb-6 max-w-3xl mx-auto tracking-wide text-shadow">
-                Análisis Técnico Profesional de Ecosistemas Fluviales
+                Informes de datos  Técnico Profesional de Ecosistemas Fluviales
               </h2>
               <div className="flex flex-row justify-center space-x-4">
                 <Button 
