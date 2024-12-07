@@ -70,16 +70,26 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
       // Configurar el evento de clic una sola vez
       map.on('click', (e: L.LeafletMouseEvent) => {
         const { lat, lng } = e.latlng;
-        const newCoord: Coordinates = {
-          lat: lat.toFixed(6),
-          lng: lng.toFixed(6),
-          id: `marker-${Date.now()}`
-        };
+        const latStr = lat.toFixed(6);
+        const lngStr = lng.toFixed(6);
         
-        const marker = L.marker([lat, lng]).addTo(map);
-        markersRef.current[newCoord.id] = marker;
+        // Verificar si ya existe una coordenada con estos valores
+        const isDuplicate = coordinates.some(
+          coord => coord.lat === latStr && coord.lng === lngStr
+        );
         
-        setCoordinates(prev => [...prev, newCoord]);
+        if (!isDuplicate) {
+          const newCoord: Coordinates = {
+            lat: latStr,
+            lng: lngStr,
+            id: `marker-${Date.now()}`
+          };
+          
+          const marker = L.marker([lat, lng]).addTo(map);
+          markersRef.current[newCoord.id] = marker;
+          
+          setCoordinates(prev => [...prev, newCoord]);
+        }
       });
 
       mapRef.current = map;
@@ -124,7 +134,13 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
   const handleCoordinateSearch = () => {
     if (isValidInput) {
       const [lat, lng] = searchInput.split(',').map(coord => coord.trim());
-      if (mapRef.current) {
+      
+      // Verificar si ya existe una coordenada con estos valores
+      const isDuplicate = coordinates.some(
+        coord => coord.lat === lat && coord.lng === lng
+      );
+      
+      if (!isDuplicate && mapRef.current) {
         const newCoord: Coordinates = {
           lat,
           lng,
@@ -142,6 +158,7 @@ const MapSection = ({ onCoordinatesSelect }: MapSectionProps) => {
           onCoordinatesSelect(updatedCoords);
           return updatedCoords;
         });
+      }
         
         setSearchInput('');
         setIsValidInput(null);
