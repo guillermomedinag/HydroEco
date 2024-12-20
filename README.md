@@ -147,3 +147,4 @@ La aplicación ofrece tres formas de seleccionar la ubicación para su informe t
 ---
 
 **Nota:** Algunas funcionalidades mencionadas son propuestas y están sujetas a desarrollo futuro.
+# HidroEco-Chile
